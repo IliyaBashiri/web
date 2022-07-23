@@ -1,0 +1,288 @@
+<html>
+
+<head>
+    <link href="siteiliya.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+   <head>
+    <body>
+
+    <section id="banner">
+
+    </section>
+    <section id="background">
+        
+
+    </section>
+    <section id="rezome">
+        <div class="card">
+            <span class="level">JUNIOR</span>
+            <img src="./InShot_20220511_113426589.jpg" alt="pic" class="pic" />
+            <h2>Iliya Bashiri</h2>
+            <p>
+              Web designer and <br />
+              Frontend developer
+            </p>
+            <!-- <div class="buttons">
+              <button class="primary">Message</button>
+              <button class="secondary" href="tel:09212324753" target="_blank">Contact</button>
+            </div> -->
+            <div class="skills">
+              <h4>Skills</h4>
+              <ul>
+                <!-- <li>UI / UX</li> -->
+                <!-- <li>Wordpress</li> -->
+                <li>HTML</li>
+                <li>CSS</li>
+                <!-- <li>Tailwind</li> -->
+                <li>Javascript</li>
+                <!-- <li>React</li> -->
+              </ul>
+            </div>
+          </div>
+    </section>
+    <section id="tozih">
+      <div class="box"><i class="fas fa-quote-left fa2"></i>
+        <div class="text"><i class="fas fa-quote-right fa1"></i>
+          <div>
+            <h3 id="darbare">درباره ی من</h3>
+            <p id="matntozih">دانشجوی علاقه مند به برنامه نویسی هستم و به صورت freelance کار طراحی وب سایت میکنم . مسلط به  css , html  و javascript . دریادگیری انعطاف بذیرم و میتونم مطالب جدید تو این سه زمینه رو یاد بگیرم .
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cheshm">
+      <div class="eye1">
+       <div class="pelk">
+           <span></span>
+       </div>
+       <div class="mardomak"></div>
+   </div>
+   
+   <div class="eye2">
+       <div class="pelk">
+           <span></span>
+       </div>
+       <div class="mardomak"></div>
+   </div>
+   
+   <script>
+       const eyes = document.querySelectorAll(".mardomak")
+       document.onmousemove = function(){
+           var x = event.clientX * 100 /window.innerWidth + "%"
+           var y = event.clientY * 100 /window.innerHeight + "%"
+           eyes.forEach(eye => {
+               eye.style.left = x;
+               eye.style.top = y;
+               eye.style.transform = "translate(-"+x+", -"+y+")"
+           })
+       }
+   </script>
+   </section>
+
+
+   
+   <section>
+    <p id="m1">اگه حوصلت سر رفته و رو کامپیوتر و لب تابی بازی کن</p>
+    <canvas width="400" height="400" id="game"></canvas>
+    <script>
+        
+    var canvas = document.getElementById('game');
+    var context = canvas.getContext('2d');
+    
+    var grid = 16;
+    var count = 0;
+    
+    var snake = {
+      x: 160,
+      y: 160,
+    
+      
+      dx: grid,
+      dy: 0,
+    
+      
+      cells: [],
+    
+      
+      maxCells: 4
+    };
+    var apple = {
+      x: 320,
+      y: 320
+    };
+    
+    
+    
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+    
+    
+    function loop() {
+      requestAnimationFrame(loop);
+    
+      
+      if (++count < 4) {
+        return;
+      }
+    
+      count = 0;
+      context.clearRect(0,0,canvas.width,canvas.height);
+    
+      
+      snake.x += snake.dx;
+      snake.y += snake.dy;
+    
+      
+      if (snake.x < 0) {
+        snake.x = canvas.width - grid;
+      }
+      else if (snake.x >= canvas.width) {
+        snake.x = 0;
+      }
+    
+      
+      if (snake.y < 0) {
+        snake.y = canvas.height - grid;
+      }
+      else if (snake.y >= canvas.height) {
+        snake.y = 0;
+      }
+    
+      
+      snake.cells.unshift({x: snake.x, y: snake.y});
+    
+      
+      if (snake.cells.length > snake.maxCells) {
+        snake.cells.pop();
+      }
+    
+      
+      context.fillStyle = 'red';
+      context.fillRect(apple.x, apple.y, grid-1, grid-1);
+    
+      
+      context.fillStyle = 'green';
+      snake.cells.forEach(function(cell, index) {
+     
+        
+        context.fillRect(cell.x, cell.y, grid-1, grid-1);
+    
+        
+        if (cell.x === apple.x && cell.y === apple.y) {
+          snake.maxCells++;
+    
+          
+          apple.x = getRandomInt(0, 25) * grid;
+          apple.y = getRandomInt(0, 25) * grid;
+        }
+    
+        
+        for (var i = index + 1; i < snake.cells.length; i++) {
+       
+          
+          if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
+            snake.x = 160;
+            snake.y = 160;
+            snake.cells = [];
+            snake.maxCells = 4;
+            snake.dx = grid;
+            snake.dy = 0;
+    
+            apple.x = getRandomInt(0, 25) * grid;
+            apple.y = getRandomInt(0, 25) * grid;
+          }
+        }
+      });
+    }
+    
+    
+    document.addEventListener('keydown', function(e) {
+     
+    
+      
+      if (e.which === 37 && snake.dx === 0) {
+        snake.dx = -grid;
+        snake.dy = 0;
+      }
+      
+      else if (e.which === 38 && snake.dy === 0) {
+        snake.dy = -grid;
+        snake.dx = 0;
+      }
+      
+      else if (e.which === 39 && snake.dx === 0) {
+        snake.dx = grid;
+        snake.dy = 0;
+      }
+      
+      else if (e.which === 40 && snake.dy === 0) {
+        snake.dy = grid;
+        snake.dx = 0;
+      }
+    });
+    
+    
+    requestAnimationFrame(loop);
+    </script>
+   </section>
+   <section id="ghahve">
+    <div class="container">
+      <div class="steamContainer">
+          <div class="steam1"></div>
+          <div class="steams">
+              <div class="steam2"></div>
+              <div class="bubble2"></div>
+          </div>
+          <div class="steams">
+              <div class="steam3"></div>
+              <div class="bubble3"></div>
+          </div>
+          <div class="steam4"></div>
+          <div class="steams">
+              <div class="steam5"></div>
+              <div class="bubble5"></div>
+          </div>
+      </div>
+      <div class="cup"></div>
+      <div class="halfCup"></div>
+      <div class="handle"></div>
+      <div class="coaster"></div>
+  </div>
+   </section>
+
+   <section id="tamas">
+    <div class="wrapper">
+      <ul class="list-wrapper">
+        <li>
+          
+          <a href="https://www.instagram.com/iliya.bashiri/" target="_blank"><img src="insta.png" height="60px" width="60px"><i class="fab fa-instagram"></i></a>
+        </li>
+        <li>
+          
+          <a href="https://github.com/IliyaBashiri?tab=projects&type=new" target="_blank"><img src="github.png" height="90px" width="90px"><i class="fab fa-twitter"></i></a>
+        </li>
+        <li>
+          
+          <a href="https://www.linkedin.com/in/iliya-bashiri-4a3118240/" target="_blank"><img src="link.png" height="60px" width="60px"><i class="fab fa-facebook"></i></a>
+        </li>
+        <li>
+          
+          <a href="https://wa.link/hinbej"><i class="fab fa-github" target="_blank"><img src="whatsapp.png" height="60px" width="60px"></i></a>
+        </li>
+        <li>
+          
+          <a href="tel:09212324753" target="_blank"><img src="phone.png" height="60px" width="60px"><i class="fab fa-whatsapp"></i></a>
+        </li>
+      </ul>
+    </div>
+   </section>
+
+
+</body>
+
+
+
+</html>
